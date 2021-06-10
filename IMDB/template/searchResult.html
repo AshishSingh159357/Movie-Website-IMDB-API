@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+
+    <style>
+        .freelnacer-gigs-container {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            padding: 40px;
+            justify-content: center;
+
+            /* background-color: whitesmoke;*/
+        }
+
+        .freelancer-gig div img {
+            height: 100%;
+            width: 100%;
+        }
+
+        .freelancer-gig div {
+            height: 300px;
+        }
+
+        .gig-content {
+            display: flex;
+            flex-direction: column;
+            margin-left: 5%;
+            max-height: 130px;
+        }
+
+        .gig-content {
+            letter-spacing: 2px;
+        }
+
+        .gig-content button {
+            background-color: rgba(160, 160, 160, 0.363);
+            padding: 5px;
+            color: white;
+            margin-right: 5%;
+            margin-top: 10px;
+            border-radius: 10px;
+
+        }
+
+        .gig-content button span {
+            margin-bottom: 5px;
+        }
+
+        .freelancer-gig {
+            cursor: pointer;
+            font-family: cursive;
+            height: 450px;
+            width: 250px;
+            margin: 15px;
+            /* background-color: white;*/
+            background-color: rgb(0, 0, 0);
+            /* Fallback color */
+            background-color: rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)
+        }
+
+        .freelancer-gig:hover {
+            transform: scale(1.05);
+        }
+
+
+        .section-2 h1 {
+            margin-left: 5%;
+            font-size: 30px;
+            color: whitesmoke;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        .nav-container {
+
+            padding: 1% 0 1% 0;
+            height: 20%;
+        }
+
+        .menu-bar .line {
+            border: 1.5px solid whitesmoke;
+            width: 20px;
+            margin: 2px;
+            background-color: black;
+        }
+
+        .menu-bar {
+            margin-right: 5%;
+        }
+
+        .nav-container {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+
+        }
+
+        .search {
+            width: 50ex;
+            padding: 5px;
+            border-style: none;
+            border-radius: 5px;
+            background-color: rgba(245, 245, 245, 0.575);
+            color: whitesmoke;
+
+        }
+
+        .logo {
+            font-size: 25px;
+            margin-left: 5%;
+        }
+    </style>
+</head>
+
+<body>
+
+
+    <div class="nav-container text-gray-400 bg-gray-900">
+        <div class="logo">Logo</div>
+        <div class="search-bar">
+            <form method="POST" action="">
+                {% csrf_token %}
+                <input type="text" class="search" name="key-word" />
+            </form>
+        </div>
+        <div class="menu-bar">
+            <div class="line"></div>
+            <div class="line"></div>
+            <div class="line"></div>
+        </div>
+        
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+    <section class="section-2 text-gray-400 bg-gray-900 body-font">
+        <div class="header">
+            <h1>Result</h1>
+        </div>
+
+        <div class="freelnacer-gigs-container">
+            {% for j in response %}
+            <a href="{% url 'ImdbApp:md' id=j.id %}">
+                <div class="freelancer-gig ">
+                    <div class="image">
+                        <img src={{j.image.url}} />
+                    </div>
+                    <div class="gig-content">
+                        <a href="{% url 'ImdbApp:md' id=j.id %}">
+                            <p>{{j.title}}</p>
+                        </a>
+                        <h6>TitleType : {{j.titleType}}</h6>
+                        <button><span style="font-size: 20px;">&#43;</span> <span>Watch List</span></button>
+                    </div>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+    </section>
+
+
+
+
+
+
+</body>
+
+</html>

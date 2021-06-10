@@ -1,0 +1,146 @@
+{% extends 'navbar.html' %}
+{% load static %}
+
+
+{% block title %}Home{% endblock title %}
+
+
+{% block body %}
+ 
+
+
+
+
+  <section class="section section-2 text-gray-400 bg-gray-900 body-font">
+    <div class="header">
+      <h1>Popular Movies </h1>
+      <img src="{% static 'arrow-right.svg' %}">
+    </div>
+
+    <div class="freelnacer-gigs-container">
+      {% for i in detail %}
+      <a href="{% url 'ImdbApp:md' id=i.id %}">
+        <div class="freelancer-gig ">
+          <div class="image">
+            <img src={{i.title.image.url}} />
+          </div>
+          <div class="gig-content">
+            <h6>&#11088;{{i.ratings.rating}}</h6>
+            <a href="{% url 'ImdbApp:md' id=i.id %}">
+              <p>{{i.title.title}}</p>
+            </a>
+            <button><span style="font-size: 20px;">&#43;</span> <span>Watch List </span></button>
+          </div>
+
+        </div>
+      </a>
+      {% endfor %}
+    </div>
+  </section>
+
+
+
+
+
+
+
+
+
+
+  <section class="section-2 text-gray-400 bg-gray-900 body-font">
+    <div class="header">
+      <h1>Popular WebSeries </h1>
+      <img src="{% static 'arrow-right.svg' %}">
+    </div>
+
+    <div class="freelnacer-gigs-container">
+      {% for j in WebSeries %}
+      <a href="{% url 'ImdbApp:md' id=j.id %}">
+        <div class="freelancer-gig ">
+          <div class="image">
+            <img src={{j.title.image.url}} />
+          </div>
+          <div class="gig-content">
+            <h6>&#11088;{{j.ratings.rating}}</h6>
+            <a href="{% url 'ImdbApp:md' id=j.id %}">
+              <p>{{j.title.title}}</p>
+            </a>
+            <button><span style="font-size: 20px;">&#43;</span> <span>Watch List</span></button>
+          </div>
+        </div>
+      </a>
+      {% endfor %}
+    </div>
+  </section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <section class="last-section text-gray-400 body-font bg-gray-900">
+    <div class="container px-5 py-24 mx-auto">
+      <div class="flex flex-wrap w-full mb-20">
+        <div class="lg:w-1/2 w-full mb-6 lg:mb-0">
+          <h1 class=" sm:text-3xl text-2xl font-medium title-font mb-2 text-white">News</h1>
+          <div class="h-1 w-20 bg-indigo-500 rounded"></div>
+        </div>
+        <p class="lg:w-1/2 w-full leading-relaxed text-gray-400 text-opacity-90"></p>
+      </div>
+      <div class="flex flex-wrap -m-4">
+
+        {% for e in news %}
+        <div class="news-container xl:w-1/4 md:w-1/2 p-4">
+          <div class="bg-gray-800 bg-opacity-40 p-6 rounded-lg">
+            <img class="h-40 rounded w-full object-cover object-center mb-6" src={{e.image.url}} alt="content">
+            
+            <h2 class="text-lg text-white font-medium title-font mb-4">{{e.head}}</h2>
+            <p class="leading-relaxed text-base">{{e.body}}</p>
+          </div>
+        </div>
+        {% endfor %}
+
+       
+      </div>
+    </div>
+  </section>
+
+
+
+
+
+
+
+
+  <script>
+    var slideIndex = 0;
+    showSlides();
+
+    function showSlides() {
+      var i;
+      var slides = document.getElementsByClassName("mySlides");
+      var dots = document.getElementsByClassName("dot");
+      for (i = 0; i < slides.length; i++) {
+        slides[i].style.display = "none";
+      }
+      slideIndex++;
+      if (slideIndex > slides.length) { slideIndex = 1 }
+      for (i = 0; i < dots.length; i++) {
+        dots[i].className = dots[i].className.replace(" active", "");
+      }
+      slides[slideIndex - 1].style.display = "block";
+      dots[slideIndex - 1].className += " active";
+      setTimeout(showSlides, 5000); // Change image every 2 seconds
+    }
+
+  </script>
+
+
+{% endblock body %}

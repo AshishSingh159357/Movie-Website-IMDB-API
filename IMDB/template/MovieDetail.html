@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  {% load static %}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+  <link href="{% static 'MovieDetail.css' %}" rel="stylesheet">
+</head>
+
+<body>
+
+  <div class="nav-container text-gray-400 bg-gray-900">
+    <div class="logo">Logo</div>
+    <div class="search-bar">
+      <form method="POST" action="">
+        {% csrf_token %}
+        <input type="text" class="search" name="key-word"/>
+      </form>
+    </div>
+    <div class="menu-bar">
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line"></div>
+    </div>
+  </div>
+
+
+
+
+  
+
+  
+
+  <section class=" text-gray-400 bg-gray-900 body-font">
+    <div class="section-2 container px-5 py-24 mx-auto flex flex-wrap">
+      <div class="flex flex-wrap -mx-4 mt-auto mb-auto lg:w-1/2 sm:w-2/3 content-start sm:pr-10">
+        <div class="w-full sm:p-4 px-4 mb-6">
+          <h1 class="title-font font-medium text-xl mb-2 text-white">{{det.title.title}}</h1>
+          <div class="leading-relaxed">{{det.plotOutline.text}}</div>
+        </div>
+        <div class="p-4 sm:w-1/2 lg:w-1/4 w-1/2">
+          <h2 class="title-font font-medium text-1.5xl text-white">{{det.ratings.rating}}</h2>
+          <p class="leading-relaxed">Rating</p>
+        </div>
+        <div class="p-4 sm:w-1/2 lg:w-1/4 w-1/2">
+          <h2 class="title-font font-medium text-1.5xl text-white">{{det.title.runningTimeInMinutes}} hr</h2>
+          <p class="leading-relaxed">Duration</p>
+        </div>
+        <div class="p-4 sm:w-1/2 lg:w-1/4 w-1/2">
+          <h2 class="title-font font-medium text-1.5xl text-white">{{det.releaseDate}}</h2>
+          <p class="leading-relaxed">Release</p>
+        </div>
+        <div class="p-4 sm:w-1/2 lg:w-1/4 w-1/2">
+          <h2 class="title-font font-medium text-1.5xl text-white">{{det.certificates.US.0.certificate}}</h2>
+          <p class="leading-relaxed">Certificate</p>
+        </div>
+        <div class="genres-container">
+          {% for j in det.genres%}
+          <div class="genres">
+            {{j}}
+          </div>
+          {% endfor %}
+        </div>
+
+        <div class="crew">
+          <h3>Director : {{crew.director.0.name}} </h3>
+          <h3>Producer : {% for i in crew.producer %} {{i.name}}, {% endfor %}</h3>
+        </div>
+
+      </div>
+
+      <!--rounded-lg overflow-hidden-->
+
+      <div class=" lg:w-1/2 sm:w-1/3 w-full mt-6 sm:mt-0">
+        <img class="Ashish-img object-cover object-center w-full h-full" src="{{det.title.image.url}}" alt="stats">
+      </div>
+
+
+    </div>
+  </section>
+
+
+
+
+
+
+
+
+
+
+
+
+  <section class="text-gray-400 bg-gray-900 body-font">
+    <div class="section container px-5 py-24 mx-auto">
+      <div class="flex flex-col text-center w-full mb-20">
+        <h1 class="top-cast sm:text-3xl text-2xl font-medium title-font mb-4 text-white">Top Cast</h1>
+        <!--<p class="lg:w-2/3 mx-auto leading-relaxed text-base">Whatever cardigan tote bag tumblr hexagon brooklyn
+          asymmetrical gentrify, subway tile poke farm-to-table. Franzen you probably haven't heard of them.</p>-->
+      </div>
+      <div class="flex flex-wrap -m-2">
+
+        {% for l in cast %}
+        <div class="p-2 lg:w-1/3 md:w-1/2 w-full">
+          <div class="h-full flex items-center border-gray-800 border p-4 rounded-lg">
+            <img alt="team" class="w-16 h-16 bg-gray-100 object-cover object-center flex-shrink-0 rounded-full mr-4"
+              src="{{l.image.url}}">
+            <div class="flex-grow">
+              <h2 class="text-white title-font font-medium">{{l.name}}</h2>
+              <p class="text-gray-600">role : {{l.characters.0}}</p>
+            </div>
+          </div>
+        </div>
+
+        {% endfor %}
+
+      </div>
+    </div>
+  </section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <section class="section-4 text-gray-400 bg-gray-900 body-font">
+    <div class="header">
+      <h1>Get More Like This</h1>
+      <img src="{% static 'arrow-right.svg' %}">
+    </div>
+
+    <div class="freelnacer-gigs-container">
+      {% for j in detail %}
+      <a href="{% url 'ImdbApp:md' id=j.id %}">
+        <div class="freelancer-gig ">
+          <div class="image">
+            <img src={{j.title.image.url}} />
+          </div>
+          <div class="gig-content">
+            <h6>&#11088;{{j.ratings.rating}}</h6>
+            <a href="{% url 'ImdbApp:md' id=j.id %}">
+              <p>{{j.title.title}}</p>
+            </a>
+            <button><span style="font-size: 20px;">&#43;</span> <span>Watch List</span></button>
+          </div>
+        </div>
+      </a>
+      {% endfor %}
+    </div>
+  </section>
+
+</body>
+
+</html>
